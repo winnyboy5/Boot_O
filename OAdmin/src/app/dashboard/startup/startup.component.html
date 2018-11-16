@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 pt-5">
+      <h2 class="text-center">Welcome to Boot_O !!!</h2>
+      <h4 class="text-center">Let's get Started.</h4>
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <ng-template matStepLabel>Requirements Check</ng-template>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              NodeJs version check
+              <span class="badge badge-pill" [ngClass]="{'badge-success': requirements?.nodejs}">Check</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              NPM version check
+              <span class="badge badge-pill" [ngClass]="{'badge-success': requirements?.npm}">Check</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Python version Check
+              <span class="badge badge-pill" [ngClass]="{'badge-success': requirements?.python}">Check</span>
+            </li>
+          </ul>
+          <div>
+            <button class="mt-2" mat-raised-button color="primary" matStepperNext>Let's Launch <i class="material-icons">launch</i></button>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="startUpForm">
+            <ng-template matStepLabel>Fill out the details</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="App Prefix" formControlName="prefixCtrl" required>
+            </mat-form-field><br>
+            <mat-form-field>
+              <mat-select placeholder="Style" formControlName="styleCtrl">
+                <mat-option [value]="'css'">
+                  CSS
+                </mat-option>
+                <mat-option [value]="'scss'">
+                  SCSS
+                </mat-option>
+                <mat-option [value]="'sass'">
+                  SASS
+                </mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-checkbox formControlName="routingCtrl">Checked</mat-checkbox><br>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext (click)="startInit()">Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <span *ngIf="!building">Please Wait while we set things up.</span>
+          <span *ngIf="building">You are now done.</span>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+
+</div>
